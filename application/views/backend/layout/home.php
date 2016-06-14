@@ -9,7 +9,11 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <base href="http://localhost/sample_app/" ">
-    <title>Dashboard Template for Bootstrap</title>
+    <title><?php
+      if (isset($meta_title) && !empty($meta_title)) {
+        echo $meta_title;
+      }
+    ?></title>
     <link href="template/fontend/css/bootstrap.min.css" rel="stylesheet">
     <link href="template/fontend/css/dashboard.css" rel="stylesheet">
   </head>
@@ -27,10 +31,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.php/admin_class">Home</a></li>
-            <li><a href="index.php/authentication/edit/<?php echo $authentication['id']; ?>">Settings</a></li>
+            <li><a href="index.php/static_pages">Home</a></li>
+            <li><a href="index.php/users/edit/<?php echo $authentication['id']; ?>">Settings</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="index.php/authentication/logout">Logout</a></li>
+            <li><a href="index.php/users/logout">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -39,13 +43,11 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <div class="row">
-        <?php
-          if (isset($template) && !empty($template)) {
-            $this->load->view($template,isset($data)? $data:NULL);
-          }
-        ?>
-      </div>
+      <?php
+        if (isset($template) && !empty($template)) {
+          $this->load->view($template,isset($data)? $data:NULL);
+        }
+      ?>
     </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->

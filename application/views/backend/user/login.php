@@ -20,7 +20,7 @@
     <?php echo  validation_errors();?>
     <label for="inputEmail">Tài khoản :</label>
     <input type="email" id="inputEmail" class="form-control" name= "email" placeholder="Email address"  value="<?php echo set_value('email', '')?>" required autofocus>
-    <label for="inputPassword" class="password">Mật khẩu:</label><a href="http://localhost/sample_app/index.php/authentication/forgot_password">(forgot password)</a>
+    <label for="inputPassword" class="password">Mật khẩu:</label><a href="index.php/users/forgot_password">(forgot password)</a>
     <input type="password" id="inputPassword" class="form-control" name = "password" placeholder="Password" required>
     <div class="checkbox">
       <label>
@@ -28,6 +28,6 @@
       </label>
     </div>
     <input class="btn btn-lg btn-primary btn-block" type="submit" name = "login" value="Đăng nhập" />
-    New user? <a href="http://localhost/sample_app/index.php/authentication/sign_up" type="submit"> Sign up now!</a>
+    New user? <a href="index.php/users/sign_up" type="submit"> Sign up now!</a>
   </form>
 </div> <!-- /container -->
