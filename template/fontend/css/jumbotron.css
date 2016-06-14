@@ -1,0 +1,63 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 25px;
+  padding-bottom: 20px;
+  background-attachment: fixed;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  	text-align: center;
+    background-color: transparent;
+}
+.jumbotron > h1 {
+	color: #fff;
+	font-family:  "aktiv-grotesk-std","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 4em;
+	font-weight: 700;
+}
+.jumbotron > p {
+	color: #fff;
+    font-family: inherit;
+	font-size: 1.5em;
+	font-weight: 300;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+@media screen and (min-width: 768px) {
+	.jumbotron {
+	    padding-top: 120px;
+	    padding-bottom: 48px;
+	}
+}
+.navbar-a{
+     background-color: transparent; 
+    border-color: transparent; 
+}
+.btn-sign-in {
+    background-color: transparent;
+    border-color: #fff;
+    padding: 0 2em;
+    line-height: 36px;
+    font-size: 1em;
+}
+.btn-sign-in:hover {
+    color: #f9423a;
+    background-color: transparent;
+    border-color: #f9423a;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+.navbar-inverse .navbar-brand {
+    color: #fff;
+    font-family:  "aktiv-grotesk-std","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 4em;
+	font-weight: 700;
+}
+.jumbotron .btn-sign-up {
+    padding: 10px 50px ;
+    font-size: 21px ;
+}
