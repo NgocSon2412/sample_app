@@ -55,5 +55,4 @@ $route['bong-da$'] = 'home/bongda';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //Back end
-$route['admin_class'] = 'admin_class/index';
-$route['admin_student'] = 'admin_student/index';
+$route['static_pages'] = 'static_pages/index';

@@ -34,7 +34,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="index.php">Home</a></li>
             <li><a href="#">Help</a></li>
-            <li><a href="index.php/authentication/login">Login</a></li>
+            <li><a href="index.php/users/login">Login</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">

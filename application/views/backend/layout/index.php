@@ -48,7 +48,7 @@
               <li><a href="#">Settings</a></li>
               <li><a href="#">Settings</a></li>
               <li><a href="#">Profile</a></li>
-              <a href="http://localhost/sample_app/index.php/authentication/login" type="submit" class="btn-sign-in btn btn-success ">Sign in</a>
+              <a href="http://localhost/sample_app/index.php/users/login" type="submit" class="btn-sign-in btn btn-success ">Sign in</a>
             </ul>
           </div>
             
@@ -60,7 +60,7 @@
     <div class="jumbotron center">
       <h1>Group chat for global teams.</h1>
       <p class="lead">Teamwork without the drama. It’s a beautiful thing.</p>
-      <p><a href="http://localhost/sample_app/index.php/authentication/sign_up" type="submit" class="btn-sign-up btn btn-danger">Sign up</a></p>   
+      <p><a href="http://localhost/sample_app/index.php/users/sign_up" type="submit" class="btn-sign-up btn btn-danger">Sign up</a></p>   
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="template/fontend/js/bootstrap.min.js"></script>
