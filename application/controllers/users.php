@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
  
 
-class Authentication extends CI_Controller {
+class Users extends CI_Controller {
 	public $authentication;
 	public function __construct() {
 		parent::__construct();
@@ -10,7 +10,7 @@ class Authentication extends CI_Controller {
 			}
 	public function login() {
 		if(isset($this->authentication) && count($this->authentication) > 0) {
-        	header('Location: http://localhost/sample_app/index.php/admin_class');
+        	header('Location: http://localhost/sample_app/index.php/static_pages');
         }
 		$this->config->set_item('sess_expiration', 0);
 		if ($this->input->post('login')) {
@@ -39,9 +39,8 @@ class Authentication extends CI_Controller {
 		                'message' => 'Bạn đăng nhập thành công!',
 		            );
 					$this->session->set_flashdata('message_flashdata',$fag1);
-					header('Location:http://localhost/sample_app/index.php/admin_class');		
-				}
-					
+					header('Location:http://localhost/sample_app/index.php/static_pages');		
+				}				
 			}
 		}
 		$data['meta_title'] = "Đăng nhập";
@@ -51,14 +50,14 @@ class Authentication extends CI_Controller {
 	}
 	public function logout() {
 		if(!isset($this->authentication) && count($this->authentication) ==0) {
-			header('Location:http://localhost/sample_app/index.php/admin_class');
+			header('Location:http://localhost/sample_app/index.php/static_pages');
         }
         if(isset($_SESSION['authentication'])) {
 				unset($_SESSION['authentication']);
 			}
         $this->session->unset_userdata('authentication');
         echo "dsađasadá";
-        header('Location:http://localhost/sample_app/index.php/admin_class');
+        header('Location:http://localhost/sample_app/index.php/static_pages');
 	}
 	public function sign_up() {
 		if ($this->input->post('sign-up')) {
@@ -76,7 +75,7 @@ class Authentication extends CI_Controller {
 				$user['http_user_agent'] = $http_user_agent;
 				$_SESSION['authentication'] = json_encode($user);
 				$this->session->set_flashdata('message_flashdata',$fag);
-				header('Location:http://localhost/sample_app/index.php/admin_class');		
+				header('Location:http://localhost/sample_app/index.php/static_pages');		
 			}
 		}
 
@@ -103,7 +102,7 @@ class Authentication extends CI_Controller {
 			if($this->form_validation->run()) {
 				$fag = $this->Model_user->edit_user($this->authentication['id']);
 				$this->session->set_flashdata('message_flashdata',$fag);
-				$redirect = 'admin_class';
+				$redirect = 'static_pages';
 				header('Location: http://localhost/sample_app/index.php/'. $redirect);	
 			}
 		}
@@ -123,7 +122,7 @@ class Authentication extends CI_Controller {
 			if($this->form_validation->run()) {
 				$fag = $this->Model_user->forgot_password();
 				$this->session->set_flashdata('message_flashdata',$fag);
-				$redirect = 'admin_class';
+				$redirect = 'static_pages';
 				header('Location: http://localhost/sample_app/index.php/'. $redirect);	
 			}
 		}
