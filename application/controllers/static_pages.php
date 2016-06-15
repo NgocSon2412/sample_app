@@ -24,7 +24,7 @@ class Static_pages extends CI_Controller {
 		// if ($config['per_page'] > 0) {
 		// 	$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page']);
 		// }
-		$data['meta_title'] = "Trang chủ";
+		$data['meta_title'] = "Sample App";
 		$data['active'] = "homepage";
 		$data['template'] = 'backend/static_page/index';
 		$data['authentication'] = $this->authentication;

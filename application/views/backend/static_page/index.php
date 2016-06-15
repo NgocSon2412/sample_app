@@ -9,13 +9,13 @@
       <div class="stats">
         <a href="/users/1/following">
           <strong id="following" class="stat">
-            56
+            <?php echo $this->Model_relationship->count_following($authentication['id']) ;?>
           </strong>
           following
         </a>
         <a href="/users/1/followers">
           <strong id="followers" class="stat">
-            40
+            <?php echo $this->Model_relationship->count_follower($authentication['id']) ;?>
           </strong>
           followers
         </a>

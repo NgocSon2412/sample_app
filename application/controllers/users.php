@@ -23,11 +23,11 @@ class Users extends CI_Controller {
 			$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page'],$id);
 		}
 		$data['count'] = $this->Model_micropost->total($id);
-		$data['user'] = $this->Model_user->get(array('id'=>$id));
+		$data['user'] = $user = $this->Model_user->get(array('id'=>$id));
 		if(!isset($data['user']) && count($data['user']) ==0) {
 			header('Location:http://localhost/sample_app/index.php/static_pages');	
 		}
-		$data['meta_title'] = "Profile";
+		$data['meta_title'] = $user['name']. '| Sample App';
 		$data['active'] = "profile";
 		$data['template'] = 'backend/user/show';
 		$data['authentication'] = $this->authentication;

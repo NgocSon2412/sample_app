@@ -9,32 +9,52 @@
       <div class="stats">
         <a href="/users/1/following">
           <strong id="following" class="stat">
-            56
+            <?php echo $this->Model_relationship->count_following($user['id']) ;?>
           </strong>
           following
         </a>
         <a href="/users/1/followers">
           <strong id="followers" class="stat">
-            40
+            <?php echo $this->Model_relationship->count_follower($user['id']) ;?>
           </strong>
           followers
         </a>
       </div>
     </section>
-    <section class="micropost_form">
-      <form action="index.php/microposts/create" method="post">
-        <div class="form-group">
-          <label >Title</label>
-          <input type="text" class="form-control" id="" placeholder="Title" name="title">
-        </div>
-        <div class="form-group">
-          <label >Content</label>
-          <textarea class="form-control" rows="5" id="" name="content"></textarea>
-        </div>
-        <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
-        <input type="submit" class="btn btn-default" value="Post" name="post">
-      </form>
-    </section>
+    <?php 
+      if($authentication['id'] == $user['id']) {
+        ?>
+        <section class="micropost_form">
+          <form action="index.php/microposts/create" method="post">
+            <div class="form-group">
+              <label >Title</label>
+              <input type="text" class="form-control" id="" placeholder="Title" name="title">
+            </div>
+            <div class="form-group">
+              <label >Content</label>
+              <textarea class="form-control" rows="5" id="" name="content"></textarea>
+            </div>
+            <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
+            <input type="submit" class="btn btn-default" value="Post" name="post">
+          </form>
+        </section>
+        <?php 
+      }elseif ($this->Model_relationship->following($authentication['id'],$user['id'])) {
+        ?>
+        <form action = "index.php/relationships/delete" method = "post">
+          <input type="hidden" name="method" value="<?php echo $user['id'];?>" />
+          <input type="submit" name="unfollow" value="Unfollow" class="btn" />
+        </form>
+        <?php
+      }else{
+        ?>
+        <form action = "index.php/relationships/create" method = "post">
+          <input type="hidden" name="method" value="<?php echo $user['id'];?>" />
+          <input type="submit" name="follow" value="follow" class="btn btn-primary" />
+        </form>
+        <?php
+      }
+    ?>   
   </aside> 
   <div class="col-md-8">
     <?php
@@ -61,7 +81,7 @@
         foreach ($list_microposts as $key => $value) {
           ?>
           <li id="micropost-<?php echo $value['id']?>">
-            <span class="user"><a href="http://localhost/sample_app/index.php/users/<?php echo $value['user_id']?>"><?php echo $user['name'];?></a></span></br>
+            <span class="user"><a href="http://localhost/sample_app/index.php/users/show/<?php echo $value['user_id']?>"><?php echo $user['name'];?></a></span></br>
             <span class="title">
               Title:<?php echo $value['title'];?></br>     
             </span>
