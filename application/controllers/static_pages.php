@@ -21,14 +21,14 @@ class Static_pages extends CI_Controller {
 		$page = ($page > $total_page)? $total_page : $page ;
 		$page = ($page < 1)? 1 : $page ;
 		$page = $page-1;
-		if ($config['per_page'] > 0) {
-			$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page']);
-		}
+		// if ($config['per_page'] > 0) {
+		// 	$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page']);
+		// }
 		$data['meta_title'] = "Trang chủ";
 		$data['active'] = "homepage";
 		$data['template'] = 'backend/static_page/index';
 		$data['authentication'] = $this->authentication;
-		$data['count'] = $this->Model_micropost->total();
+		// $data['count'] = $this->Model_micropost->total();
 		$this->load->view('backend/layout/home',isset($data)? $data:NULL);
 	}
 	public function _pagination() {
@@ -52,8 +52,9 @@ class Static_pages extends CI_Controller {
         $config['num_tag_close'] = '</li>';
         $config['use_page_numbers'] = TRUE;
         $config['base_url'] = 'http://localhost/sample_app/index.php/static_pages/index';
-        $config['total_rows'] = $this->Model_micropost->total();
-        $config['per_page'] = 3;
+        $config['total_rows'] = 0; 
+        // $this->Model_micropost->total();
+        $config['per_page'] = 15;
         return $config;         
     }
 }
