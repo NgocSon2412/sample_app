@@ -18,6 +18,9 @@ class Model_user extends CI_Model {
         }
         return $this->db->get()->row_array();
     }
+    function index($start, $limit) {
+        return $this->db->select('*')->from('users')->order_by('id ASC')->limit($limit,$start)->get()->result_array(); 
+    }  
     function add_user() {
         $this->db->insert('users', array(
                 'name' => $this->input->post('name'),
@@ -36,6 +39,22 @@ class Model_user extends CI_Model {
             return array(
                 'type' => 'error',
                 'message' => 'Không có bản ghi nào được thêm',
+            );
+        }
+    }
+    function delete($id =0) {            
+        $id = (int)$id;
+        $this->db->delete('users', array('id' => $id)); 
+        $fag = $this->db->affected_rows();
+        if ($fag > 0) {
+            return array(
+                'type' => 'seccessful',
+                'message' => 'Xóa post thành công!',
+            );
+        } else {
+            return array(
+                'type' => 'error',
+                'message' => 'Không có bản ghi nào bị xóa!',
             );
         }
     }
