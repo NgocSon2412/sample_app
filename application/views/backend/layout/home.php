@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <base href="http://localhost/sample_app/" ">
+    <base href="http://localhost/sample_app/" >
     <title><?php
       if (isset($meta_title) && !empty($meta_title)) {
         echo $meta_title;
@@ -33,7 +33,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="index.php/static_pages">Home</a></li>
             <li><a href="index.php/users/edit/<?php echo $authentication['id']; ?>">Settings</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="http://localhost/sample_app/index.php/users/show/<?php echo $authentication['id'];?>">Profile</a></li>
+            <li><a href="http://localhost/sample_app/index.php/users/show_all_user">Users</a></li>
             <li><a href="index.php/users/logout">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right">

@@ -2,7 +2,7 @@
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
-      <?php echo $authentication['name'];?>
+        <?php echo $user['name'];?>
       </h1>
     </section>
     <section class="stats">
@@ -55,13 +55,13 @@
     // echo "Name:" .$authentication['name']."</br>";
     // echo "Email:".$authentication['email']."</br>";  
     ?> 
-    <h3>Microposts</h3>
-    <!-- <ol class="microposts">
+    <h3>Microposts (<?php echo $count;?>)</h3>
+    <ol class="microposts">
       <?php if (isset($list_microposts) && count($list_microposts)) {
         foreach ($list_microposts as $key => $value) {
           ?>
           <li id="micropost-<?php echo $value['id']?>">
-            <span class="user"><a href="http://localhost/sample_app/index.php/users/<?php echo $value['user_id']?>"><?php echo $authentication['name'];?></a></span></br>
+            <span class="user"><a href="http://localhost/sample_app/index.php/users/<?php echo $value['user_id']?>"><?php echo $user['name'];?></a></span></br>
             <span class="title">
               Title:<?php echo $value['title'];?></br>     
             </span>
@@ -78,17 +78,24 @@
                 echo 'Posted ' . timespan($post_time, $now) . ' ago';
               }
             ?>
+            <?php 
+              if ($authentication['id'] == $value['user_id']) {
+              ?>
               <a class = "delete" href= "index.php/microposts/delete/<?php echo $value['id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
+              <?php
+              }
+            ?>
+              
             </span>
           </li>
          <?php 
         }
       }
       ?>    
-    </ol> -->
-    <!-- <div class="col-sm-4 col-sm-offset-8" style="padding-left:0px;">
+    </ol>
+    <div class="col-sm-4 col-sm-offset-8" style="padding-left:0px;">
       <?php echo isset($list_pagination)? $list_pagination : ''; ?>    
-    </div> -->
+    </div>
   </div>
 </div>  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
