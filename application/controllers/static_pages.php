@@ -21,9 +21,9 @@ class Static_pages extends CI_Controller {
 		$page = ($page > $total_page)? $total_page : $page ;
 		$page = ($page < 1)? 1 : $page ;
 		$page = $page-1;
-		// if ($config['per_page'] > 0) {
-		// 	$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page']);
-		// }
+        if ($config['per_page'] > 0) {
+                $data['list_microposts'] =$fag = $this->Model_micropost->view_micropost_all(($page*$config['per_page']),$config['per_page'],$this->authentication['id']);
+            }
 		$data['meta_title'] = "Sample App";
 		$data['active'] = "homepage";
 		$data['template'] = 'backend/static_page/index';
@@ -52,8 +52,7 @@ class Static_pages extends CI_Controller {
         $config['num_tag_close'] = '</li>';
         $config['use_page_numbers'] = TRUE;
         $config['base_url'] = 'http://localhost/sample_app/index.php/static_pages/index';
-        $config['total_rows'] = 0; 
-        // $this->Model_micropost->total();
+        $config['total_rows'] = $this->Model_micropost->total_all($this->authentication['id']); 
         $config['per_page'] = 15;
         return $config;         
     }

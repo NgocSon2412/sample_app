@@ -8,30 +8,52 @@ class Users extends CI_Controller {
 		parent::__construct();
 		$this->authentication = $this->my_authentication->check();
 	}
-	public function show($id =1 ,$page = 1){	
+	public function show($id =1 ,$aciton = NULL,$page = 1){	
 		$id = (int)$id;
 		$this->load->library('pagination');
-		// config giao dien phan trang
-		$config = $this->_pagination($id);		
-		$this->pagination->initialize($config); 
-		$data['list_pagination'] = $this->pagination->create_links();
-		$total_page = ceil($config['total_rows']/$config['per_page']); //ceil lấy phần nguyên
-		$page = ($page > $total_page)? $total_page : $page ;
-		$page = ($page < 1)? 1 : $page ;
-		$page = $page-1;
-		if ($config['per_page'] > 0) {
-			$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page'],$id);
+		if($aciton == "following" || $aciton == "followers") {	
+			$config = $this->_pagination1();		
+			$this->pagination->initialize($config); 
+			$data['list_pagination'] = $this->pagination->create_links();
+			$total_page = ceil($config['total_rows']/$config['per_page']); //ceil lấy phần nguyên
+			$page = ($page > $total_page)? $total_page : $page ;
+			$page = ($page < 1)? 1 : $page ;
+			$page = $page-1;
+			if ($config['per_page'] > 0) {
+				if($aciton == "followers") {
+					$data['list_users'] =$fag = $this->Model_relationship->followers($id,($page*$config['per_page']),$config['per_page']);
+				}elseif ($aciton == "following") {
+					$data['list_users'] =$fag = $this->Model_relationship->followings($id,($page*$config['per_page']),$config['per_page']);
+				}
+			}
+			$data['meta_title'] = "All user | Sample App";
+			$data['active'] = "all_user";
+			$data['template'] = 'backend/user/index';
+			$data['authentication'] = $this->authentication;
+			$this->load->view('backend/layout/home',isset($data)? $data:NULL);
+		}else {
+			// config giao dien phan trang
+			$config = $this->_pagination($id);		
+			$this->pagination->initialize($config); 
+			$data['list_pagination'] = $this->pagination->create_links();
+			$total_page = ceil($config['total_rows']/$config['per_page']); //ceil lấy phần nguyên
+			$page = ($page > $total_page)? $total_page : $page ;
+			$page = ($page < 1)? 1 : $page ;
+			$page = $page-1;
+			if ($config['per_page'] > 0) {
+				$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page'],$id);
+			}
+			$data['count'] = $this->Model_micropost->total($id);
+			$data['user'] = $user = $this->Model_user->get(array('id'=>$id));
+			if(!isset($data['user']) && count($data['user']) ==0) {
+				header('Location:http://localhost/sample_app/index.php/static_pages');	
+			}
+			$data['meta_title'] = $user['name']. ' | Sample App';
+			$data['active'] = "profile";
+			$data['template'] = 'backend/user/show';
+			$data['authentication'] = $this->authentication;
+			$this->load->view('backend/layout/home',isset($data)? $data:NULL);
 		}
-		$data['count'] = $this->Model_micropost->total($id);
-		$data['user'] = $user = $this->Model_user->get(array('id'=>$id));
-		if(!isset($data['user']) && count($data['user']) ==0) {
-			header('Location:http://localhost/sample_app/index.php/static_pages');	
-		}
-		$data['meta_title'] = $user['name']. '| Sample App';
-		$data['active'] = "profile";
-		$data['template'] = 'backend/user/show';
-		$data['authentication'] = $this->authentication;
-		$this->load->view('backend/layout/home',isset($data)? $data:NULL);
 	}
 	public function show_all_user($page = 1){	
 		$this->load->library('pagination');
@@ -47,7 +69,7 @@ class Users extends CI_Controller {
 			$data['list_users'] =$fag = $this->Model_user->index(($page*$config['per_page']),$config['per_page']);
 		}
 		$data['count'] = $this->Model_user->total();
-		$data['meta_title'] = "All user";
+		$data['meta_title'] = "All user | Sample App";
 		$data['active'] = "all_user";
 		$data['template'] = 'backend/user/index';
 		$data['authentication'] = $this->authentication;
@@ -88,7 +110,7 @@ class Users extends CI_Controller {
 				}				
 			}
 		}
-		$data['meta_title'] = "Đăng nhập";
+		$data['meta_title'] = "Login | Sample App";
 		$data['active'] = "login";
 		$data['template'] = 'backend/user/login';
 		$this->load->view('backend/layout/home1',isset($data)? $data:NULL);
@@ -124,7 +146,7 @@ class Users extends CI_Controller {
 			}
 		}
 
-		$data['meta_title'] = "Sign Up";
+		$data['meta_title'] = "Sign Up | Sample App";
 		$data['active'] = "sign_up";	
 		$data['template'] = 'backend/user/sign_up';
 		$this->load->view('backend/layout/home1',isset($data)? $data:NULL);
@@ -174,7 +196,7 @@ class Users extends CI_Controller {
 			}
 		}
 
-		$data['meta_title'] = "Edit";
+		$data['meta_title'] = "Edit | Sample App";
 		$data['active'] = "Edit";
 		$data['authentication'] = $this->authentication;
 		$data['template'] = 'backend/user/edit';
@@ -193,7 +215,7 @@ class Users extends CI_Controller {
 				header('Location: http://localhost/sample_app/index.php/'. $redirect);	
 			}
 		}
-		$data['meta_title'] = "Forgot password";
+		$data['meta_title'] = "Forgot password | Sample App";
 		$data['active'] = "Forgot password";
 		$data['authentication'] = $this->authentication;
 		$data['template'] = 'backend/user/forgot_password';

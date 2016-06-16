@@ -34,7 +34,7 @@
             <li><a href="index.php/static_pages">Home</a></li>
             <li><a href="index.php/users/edit/<?php echo $authentication['id']; ?>">Settings</a></li>
             <li><a href="http://localhost/sample_app/index.php/users/show/<?php echo $authentication['id'];?>">Profile</a></li>
-            <li><a href="http://localhost/sample_app/index.php/users/show_all_user">Users</a></li>
+            <li><a href="http://localhost/sample_app/index.php/users">Users</a></li>
             <li><a href="index.php/users/logout">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right">

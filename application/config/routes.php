@@ -56,3 +56,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //Back end
 $route['static_pages'] = 'static_pages/index';
+$route['users'] = 'users/show_all_user';

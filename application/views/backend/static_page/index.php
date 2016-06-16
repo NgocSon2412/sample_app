@@ -7,15 +7,15 @@
     </section>
     <section class="stats">
       <div class="stats">
-        <a href="/users/1/following">
+        <a href= "index.php/users/show/<?php echo $authentication['id'];?>/following">
           <strong id="following" class="stat">
-            <?php echo $this->Model_relationship->count_following($authentication['id']) ;?>
+            <?php echo count($this->Model_relationship->followings($authentication['id'])) ;?>
           </strong>
           following
         </a>
-        <a href="/users/1/followers">
+        <a href= "index.php/users/show/<?php echo $authentication['id'];?>/followers">
           <strong id="followers" class="stat">
-            <?php echo $this->Model_relationship->count_follower($authentication['id']) ;?>
+            <?php echo count($this->Model_relationship->followers($authentication['id']) );?>
           </strong>
           followers
         </a>
@@ -56,12 +56,12 @@
     // echo "Email:".$authentication['email']."</br>";  
     ?> 
     <h3>Microposts</h3>
-    <!-- <ol class="microposts">
+      <ol class="microposts">
       <?php if (isset($list_microposts) && count($list_microposts)) {
         foreach ($list_microposts as $key => $value) {
           ?>
-          <li id="micropost-<?php echo $value['id']?>">
-            <span class="user"><a href="http://localhost/sample_app/index.php/users/<?php echo $value['user_id']?>"><?php echo $authentication['name'];?></a></span></br>
+          <li id="micropost-<?php echo $value['micropost_id']?>">
+            <span class="user"><a href="http://localhost/sample_app/index.php/users/<?php echo $value['user_id']?>"><?php echo $value['name'];?></a></span></br>
             <span class="title">
               Title:<?php echo $value['title'];?></br>     
             </span>
@@ -70,7 +70,7 @@
             </span>
             <span class="timestamp">
             <?php
-              $post_time=strtotime($value['created_at']) ;
+              $post_time=strtotime($value['micropost_created_at']) ;
               $now = time();
               if (($now - $post_time) < 60) {
                 echo "Posted less than a minute ago." ;
@@ -78,17 +78,17 @@
                 echo 'Posted ' . timespan($post_time, $now) . ' ago';
               }
             ?>
-              <a class = "delete" href= "index.php/microposts/delete/<?php echo $value['id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
+              <a class = "delete" href= "index.php/microposts/delete/<?php echo $value['micropost_id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
             </span>
           </li>
          <?php 
         }
       }
       ?>    
-    </ol> -->
-    <!-- <div class="col-sm-4 col-sm-offset-8" style="padding-left:0px;">
+    </ol>
+    <div class="col-sm-4 col-sm-offset-8" style="padding-left:0px;">
       <?php echo isset($list_pagination)? $list_pagination : ''; ?>    
-    </div> -->
+    </div>
   </div>
 </div>  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
