@@ -1,17 +1,10 @@
-<h3>All users (<?php echo $count;?>)</h3>
+<h3>All users (<?php echo count($list_users);?>)</h3>
 <ol class="users">
   <?php if (isset($list_users) && count($list_users)) {
     foreach ($list_users as $key => $value) {
       ?>
-      <li id="micropost-<?php echo $value['id']?>">
-        <span class="user"><a href="http://localhost/sample_app/index.php/users/show/<?php echo $value['id']?>"><?php echo $value['name'];?></a></span> 
-        <?php 
-          if ($authentication['role_id'] == 1) {
-            ?>
-            | <a class = "delete" href= "index.php/users/delete/<?php echo $value['id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
-            <?php
-          }    
-        ?>
+      <li>
+        <span class="user"><a href="http://localhost/sample_app/index.php/users/show/<?php echo $value['id']?>"><?php echo $value['name'];?></a></span>     
         </span>
       </li>
      <?php 

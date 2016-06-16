@@ -40,14 +40,26 @@ class Model_relationship extends CI_Model {
         }        
         return FALSE;
     }
-    function count_following($current_user_id) {            
+    function followings($current_user_id,$start=0,$limit=0) {            
         $current_user_id = (int)$current_user_id;
-        $array =$this->db->select('followed_id')->from('relationships')->where(array('follower_id' =>$current_user_id))->get()->result_array(); 
-        return count($array);
+        $array =$this->db->select('followed_id')->from('relationships')->where(array('follower_id' =>$current_user_id))->limit($limit,$start)->get()->result_array();
+        if(isset($array) && count($array)) {
+            foreach ($array as $key => $value) {
+                $temp[] = $this->Model_user->get(array('id'=> $value['followed_id'])); 
+            }
+            return $temp;      
+        }
+        return NULL;
     }
-    function count_follower($current_user_id) {            
+    function followers($current_user_id,$start=0,$limit=0) {            
         $current_user_id = (int)$current_user_id;
-        $array =$this->db->select('follower_id')->from('relationships')->where(array('followed_id' =>$current_user_id))->get()->result_array(); 
-        return count($array);
+        $array =$this->db->select('follower_id')->from('relationships')->where(array('followed_id' =>$current_user_id))->limit($limit,$start)->get()->result_array(); 
+        if(isset($array) && count($array)) {
+            foreach ($array as $key => $value) {
+                $temp[] = $this->Model_user->get(array('id'=> $value['follower_id'])); 
+            }
+            return $temp;      
+        }
+        return NULL;
     }
 }

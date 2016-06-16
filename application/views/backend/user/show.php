@@ -7,15 +7,15 @@
     </section>
     <section class="stats">
       <div class="stats">
-        <a href="/users/1/following">
+        <a href= "index.php/users/show/<?php echo $user['id'];?>/following">
           <strong id="following" class="stat">
-            <?php echo $this->Model_relationship->count_following($user['id']) ;?>
+            <?php echo count($this->Model_relationship->followings($user['id'])) ;?>
           </strong>
           following
         </a>
-        <a href="/users/1/followers">
+        <a href= "index.php/users/show/<?php echo $user['id'];?>/followers">
           <strong id="followers" class="stat">
-            <?php echo $this->Model_relationship->count_follower($user['id']) ;?>
+            <?php echo count($this->Model_relationship->followers($user['id'])) ;?>
           </strong>
           followers
         </a>
