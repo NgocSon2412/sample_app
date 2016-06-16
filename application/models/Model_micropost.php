@@ -52,4 +52,24 @@ class Model_micropost extends CI_Model {
     function total($id) {
         return $this->db->from('microposts')->where(array('user_id' =>$id))->count_all_results();
     }
+    function view_micropost_all($start, $limit =0,$id =0) {
+        $temp[0] = $id;
+        $array = $this->Model_relationship->followings($id);
+        if(isset($array) && count($array)) {
+            foreach ($array as $key => $value) {
+                $temp[] = $value['id']; 
+            }     
+        }
+        return $this->db->select('microposts.id as micropost_id,title,content,microposts.created_at as micropost_created_at,users.id as user_id,users.name')->from('microposts')->join('users','user_id=users.id')->where_in('user_id' ,$temp)->order_by('microposts.created_at DESC')->limit($limit,$start)->get()->result_array(); 
+    }
+    function total_all($id) {
+        $temp[0] = $id;
+        $array = $this->Model_relationship->followings($id);
+        if(isset($array) && count($array)) {
+            foreach ($array as $key => $value) {
+                $temp[] = $value['id']; 
+            }     
+        }
+        return $this->db->select('*')->from('microposts')->where_in('user_id' ,$temp)->count_all_results();
+    }
 }
