@@ -41,8 +41,11 @@ class Users extends CI_Controller {
 			$page = ($page < 1)? 1 : $page ;
 			$page = $page-1;
 			if ($config['per_page'] > 0) {
-				$data['list_microposts'] =$fag = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page'],$id);
+				$data['list_microposts'] =$microposts = $this->Model_micropost->view_micropost(($page*$config['per_page']),$config['per_page'],$id);
 			}
+			foreach ($microposts as $key => $value) {
+	            $data['list_comments'][] = $this->Model_comment->view_comment($value['id']);        
+	        }
 			$data['count'] = $this->Model_micropost->total($id);
 			$data['user'] = $user = $this->Model_user->get(array('id'=>$id));
 			if(!isset($data['user']) && count($data['user']) ==0) {
