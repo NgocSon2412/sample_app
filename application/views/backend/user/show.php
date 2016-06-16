@@ -109,7 +109,7 @@
           </li>
           <?php if(($this->Model_relationship->following($authentication['id'],$user['id'])) || ($authentication['id']) == $user['id']) {
             ?>
-            <input type="submit" name = "btn-comment" class="btn btn-link" value="Comment">
+            <input type="submit" class="btn btn-link btn-comment" value="Comment">
             <div class = "all_comment">
               <div class="comment_form">
                 <div class="form-group">
@@ -176,6 +176,9 @@
 $(document).ready(function(){
     $(".delete").click(function(){
         confirm("You sure?");
+    });
+    $(".btn-comment").click(function(){
+        $(".all_comment").toggle();
     });
 });
 </script>

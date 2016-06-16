@@ -7,13 +7,20 @@ class Model_relationship extends CI_Model {
     function follow($current_user_id,$other_user_id) {
         $current_user_id = (int)$current_user_id;
         $other_user_id = (int)$other_user_id;
-        $this->db->insert('relationships', array(
-                'follower_id' => $current_user_id,
-                'followed_id' => $other_user_id,
-                'created_at' => gmdate('Y-m-d H:i:s',time() + 7*3600),
+        $this->db->select('*')->from('relationships')->where(array(
+             'follower_id' => $current_user_id,
+            'followed_id' => $other_user_id,
             ));
+        $count = $this->db->count_all_results();
+        if($count == 0) {
+            $this->db->insert('relationships', array(
+                    'follower_id' => $current_user_id,
+                    'followed_id' => $other_user_id,
+                    'created_at' => gmdate('Y-m-d H:i:s',time() + 7*3600),
+                ));
 
-        $this->db->affected_rows();
+            $this->db->affected_rows();
+        }
     }
     function unfollow($current_user_id,$other_user_id) {            
         $current_user_id = (int)$current_user_id;
