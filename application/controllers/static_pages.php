@@ -22,8 +22,12 @@ class Static_pages extends CI_Controller {
 		$page = ($page < 1)? 1 : $page ;
 		$page = $page-1;
         if ($config['per_page'] > 0) {
-                $data['list_microposts'] =$fag = $this->Model_micropost->view_micropost_all(($page*$config['per_page']),$config['per_page'],$this->authentication['id']);
-            }
+            $data['list_microposts'] =$microposts = $this->Model_micropost->view_micropost_all(($page*$config['per_page']),$config['per_page'],$this->authentication['id']);
+        }
+        foreach ($microposts as $key => $value) {
+            $data['list_comments'][] = $this->Model_comment->view_comment($value['micropost_id']);        
+        }
+        // print_r($data['list_comments']); die();
 		$data['meta_title'] = "Sample App";
 		$data['active'] = "homepage";
 		$data['template'] = 'backend/static_page/index';

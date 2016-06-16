@@ -31,7 +31,6 @@ class My_authentication {
       }
       return NULL;
     }
-    $user['permissions'] = $this->CI->Model_role->permissions(array('role_id' =>$user['role_id']));
     return $user;
   }
 }

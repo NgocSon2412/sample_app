@@ -56,7 +56,7 @@
     // echo "Email:".$authentication['email']."</br>";  
     ?> 
     <h3>Microposts</h3>
-      <ol class="microposts">
+    <ol class="microposts">
       <?php if (isset($list_microposts) && count($list_microposts)) {
         foreach ($list_microposts as $key => $value) {
           ?>
@@ -81,7 +81,56 @@
               <a class = "delete" href= "index.php/microposts/delete/<?php echo $value['micropost_id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
             </span>
           </li>
-         <?php 
+          <input type="submit" class="btn btn-link btn-comment" value="Comment">
+          <div class = "all_comment">
+            <div class="comment_form">
+              <div class="form-group">
+                <form action="index.php/comments/create" method="post">
+                  <input type="hidden" name="post_id" value="<?php echo $value['micropost_id'];?>" />
+                  <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
+                  <input placeholder="Write a comment..." class="form-control" type="text" name="content" id="comment_content" />
+                  <input type="submit" class="comment btn btn-default " value="Comment" name="comment">
+                </form>  
+              </div>
+            </div>
+            <?php
+            if (isset($list_comments) && count($list_comments)) {
+              foreach ($list_comments as $key => $value1) {
+                foreach ($value1 as $key => $val) {
+                  if($val['post_id'] == $value['micropost_id']) {
+                    ?>
+                    <li class ="comments" id="comment-<?php echo $val['comment_id']?>" style="border-top: 1px solid #fff;">
+                      <span class="user"><a href="http://localhost/sample_app/index.php/users/<?php echo $val['user_id']?>"><?php echo $val['name'];?></a></span>:
+                      <span class="content">
+                        <?php echo $val['content']?> </br>          
+                      </span>
+                      <span class="timestamp">
+                      <?php
+                        $post_time=strtotime($val['comment_created_at']) ;
+                        $now = time();
+                        if (($now - $post_time) < 60) {
+                          echo "Posted less than a minute ago." ;
+                        }else {
+                          echo 'Posted ' . timespan($post_time, $now) . ' ago';
+                        }
+                      ?>
+                      <?php
+                        if (($authentication['id'] == $val['user_id'])||($authentication['id'] == $value['user_id'])) {
+                          ?>
+                          <a class = "delete" href= "index.php/comments/delete/<?php echo $val['comment_id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
+                          <?php
+                        }
+                      ?>
+                      </span>
+                    </li>
+                    <?php
+                  }
+                }
+              }
+            }
+            ?>
+          </div>
+          <?php
         }
       }
       ?>    
@@ -96,6 +145,9 @@
 $(document).ready(function(){
     $(".delete").click(function(){
         confirm("You sure?");
+    });
+    $(".btn-comment").click(function(){
+        $(".all_comment").toggle();
     });
 });
 </script>
