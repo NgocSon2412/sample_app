@@ -81,7 +81,27 @@
               <a class = "delete" href= "index.php/microposts/delete/<?php echo $value['micropost_id'];?>?redirect=<?php echo base64_encode($this->my_string->fullurl());?>">Delete</a>
             </span>
           </li>
+          <?php
+          if ($this->Model_like->check_liking($authentication['id'],$value['micropost_id'])) {       
+              ?>
+              <form action = "index.php/likes/delete" method = "post" style="display:inline">
+                <input type="hidden" name="post_id" value="<?php echo $value['micropost_id'];?>" />
+                <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
+                <input type="submit" name = "unlike" class="btn btn-link" value="Unlike">
+              </form>
+              <?php
+            }else{
+              ?>
+              <form action = "index.php/likes/create" method = "post" style="display:inline">
+                <input type="hidden" name="post_id" value="<?php echo $value['micropost_id'];?>" />
+                <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
+                <input type="submit" name = "like" class="btn btn-link" value="Like">
+              </form>
+              <?php
+            }
+          ?>   
           <input type="submit" class="btn btn-link btn-comment" value="Comment">
+          <p><b><?php echo $this->Model_like->count_like($value['micropost_id']);?> Like </b></p>
           <div class = "all_comment">
             <div class="comment_form">
               <div class="form-group">
