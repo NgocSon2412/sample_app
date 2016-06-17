@@ -109,7 +109,27 @@
           </li>
           <?php if(($this->Model_relationship->following($authentication['id'],$user['id'])) || ($authentication['id']) == $user['id']) {
             ?>
+            <?php
+              if ($this->Model_like->check_liking($authentication['id'],$value['id'])) {       
+                  ?>
+                  <form action = "index.php/likes/delete" method = "post" style="display:inline">
+                    <input type="hidden" name="post_id" value="<?php echo $value['id'];?>" />
+                    <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
+                    <input type="submit" name = "unlike" class="btn btn-link" value="Unlike">
+                  </form>
+                  <?php
+                }else{
+                  ?>
+                  <form action = "index.php/likes/create" method = "post" style="display:inline">
+                    <input type="hidden" name="post_id" value="<?php echo $value['id'];?>" />
+                    <input type="hidden" name="method" value="<?php echo $this->my_string->fullurl();?>" />
+                    <input type="submit" name = "like" class="btn btn-link" value="Like">
+                  </form>
+                  <?php
+                }
+            ?>   
             <input type="submit" class="btn btn-link btn-comment" value="Comment">
+            <p><b><?php echo $this->Model_like->count_like($value['id']);?> Like </b></p>
             <div class = "all_comment">
               <div class="comment_form">
                 <div class="form-group">
